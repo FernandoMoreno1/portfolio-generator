@@ -1,30 +1,34 @@
-let message = 'Hello Node!';
-message = 'Hello ES6!';
+const fs = require('fs');
 
-let sum = 5 + 3;
-sum += 1;
+// what this is doing is calling the generatePage function in page-template and running it here
+const generatePage = require('./src/page-template.js');
 
-console.log(message);
-console.log(sum);
 
-// capture command-line arguments 
+const profileDataArgs = process.argv.slice(2);
 
-var commandLineArgs = process.argv;
-// the first value is a file path to where Node.js is installed
-// the second value is a path to where app.js is found 
-console.log(commandLineArgs);
+const [name, github] = profileDataArgs;
 
-//Arrow functions are not direct replacements to the functions we all know and love but rather a way of creating more concise function expressions where possible. They don't need the function keyword and instead use syntax like the following
-// Notice the lack of parentheses around the `profileDataArr` parameter?
-const printProfileData = profileDataArr => {
-  // This...
-  for (let i = 0; i < profileDataArr.length; i += 1) {
-    console.log(profileDataArr[i]);
-  }
+// const generatePage = (name, github) => {
+//   return `
+//   <!DOCTYPE html> 
+//   <html lang="en"> 
+//   <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+//     <title>Portfolio Demo</title>
+//   </head>
 
-  console.log('================');
+//   <body>
+//     <h1>${name}</h1>
+//     <h2><a href="https://github.com/${github}">Github</a></h2>
+//   </body>
+//   </html>
+//   `;
+// };
 
-  // Is the same as this...
-  profileDataArr.forEach(profileItem => console.log(profileItem));
-    console.log(profileItem)
-};
+fs.writeFile('./index.html', generatePage(name, github), err => {
+  if (err) throw new Error(err);
+
+  console.log('Portfolio complete! Check out index.html to see the output!');
+});

@@ -1,4 +1,5 @@
-const generatePage = (name, github) => {
+//replaces the start of the function 
+module.exports = (name, github) => {
   return `
   <!DOCTYPE html> 
   <html lang="en"> 
@@ -17,4 +18,3 @@ const generatePage = (name, github) => {
   `;
 };
 
-module.exports = generatePage;
